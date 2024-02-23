@@ -1,0 +1,62 @@
+Python code:
+# import necessary libraries
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+#importing datasets
+data_set= pd.read_csv('sensor_dataset.csv')
+#Extracting Independent and dependent Variable
+x= data_set.iloc[:, [0,1,2]].values
+y= data_set.iloc[:, 3].values
+# Create a simple dataset
+# Each row represents a feature of dataset
+X = data_set.iloc[:, [0,1,2]].values
+# Create corresponding labels: 0,1,2
+Y = data_set.iloc[:, 3].values
+plt.scatter(X[:, 0], X[:, 1])
+plt.scatter(X[:, 0], X[:, 2])
+plt.scatter(X[:, 1], X[:, 2])
+# Set labels for the axes
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+# Display the plot
+plt.show()
+# Create a KNN classifier with K=3
+knn = KNeighborsClassifier(n_neighbors=3)
+# Train the classifier with our data
+print(knn.fit(X, Y))
+# Now let's give different values for testing
+test_data = np.array([-3.99371789990246, 10.140564568, 5.368373992]).reshape(1, -1)
+data_prediction = knn.predict(test_data)
+test_data1 = np.array([-3.99371789990246, -10.140564568, 5.368373992]).reshape(1, -1)
+data_prediction1 = knn.predict(test_data1)
+test_data2 = np.array([-9.33909615,6.48854571360804,1.1663713170348]).reshape(1, -1)
+data_prediction2 = knn.predict(test_data2)
+print("Label: ",data_prediction)
+print("Label: ",data_prediction1)
+print("Label: ",data_prediction2)
+# Split the data into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+# Predict the labels for the test data
+y_pred = knn.predict(X_test)
+# Print the accuracy of the classifier
+print("Accuracy:", metrics.accuracy_score(y_test,y_pred))
+
+Algorithm:
+1.	Imports necessary libraries, including scikit-learn for machine learning, NumPy for numerical operations, and Matplotlib for plotting.
+2.	Loads a dataset from a CSV file named 'sensor_dataset.csv'.
+3.	Extracts independent variables (x) and dependent variable (y) from the dataset.
+4.	Creates a scatter plot of the dataset using Matplotlib.
+5.	Initializes a KNN classifier with k=3 neighbors.
+6.	Trains the classifier using the entire dataset.
+7.	Makes predictions on three different test data points.
+8.	Prints the predicted labels for the test data points.
+9.	Splits the dataset into training and test sets.
+10.	Predicts labels for the test set using the trained classifier.
+11.	Prints the accuracy of the classifier on the test set.
+
+Code link:
+https://colab.research.google.com/drive/1GuFUh2PWqBwdA9Y7xZ9O3eSbfpAZ67k2?usp=sharing
